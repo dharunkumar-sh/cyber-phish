@@ -11,7 +11,7 @@ export default function FAQ() {
       answer: "Our machine learning models are trained on millions of confirmed phishing and benign URLs, achieving a 99.2% detection rate with near-zero false positives. The models are updated daily to catch zero-day threats."
     },
     {
-      question: "Does CyberPhish Guardian store my personal data?",
+      question: "Does CyberPhish store my personal data?",
       answer: "No. We only analyze the submitted URL and its public-facing metadata. We do not track users, store personal information, or intercept any traffic other than the URL structure and domain intel you submit for scanning."
     },
     {

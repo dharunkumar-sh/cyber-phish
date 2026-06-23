@@ -289,12 +289,19 @@ export default function WorkflowSection() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="pt-4 border-t border-slate-850"
+                className="pt-4 border-t border-slate-850 space-y-2"
               >
                 <button className="w-full flex items-center justify-center gap-2 bg-slate-850 hover:bg-slate-800 text-white py-3 rounded-lg text-xs transition-colors border border-slate-700">
                   <Download className="w-4 h-4" />
                   Download PDF Report
                 </button>
+                <a
+                  href={`/dashboard/analysis?url=${encodeURIComponent(url)}`}
+                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[var(--color-cyber-blue)] to-[var(--color-cyber-purple)] text-white py-3 rounded-lg text-xs font-bold transition-all hover:shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+                >
+                  <Search className="w-4 h-4" />
+                  Open in SOC Dashboard
+                </a>
               </motion.div>
             )}
           </motion.div>
