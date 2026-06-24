@@ -31,7 +31,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   // Basic CSP (permissive for dev, tighten for prod)
   "Content-Security-Policy":
     process.env.NODE_ENV === "production"
-      ? "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none';"
+      ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none';"
       : "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;",
 };
 
