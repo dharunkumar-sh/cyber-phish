@@ -7,18 +7,18 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
       {/* Background glowing orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-cyber-blue)] rounded-full mix-blend-screen filter blur-[128px] opacity-20 animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--color-cyber-purple)] rounded-full mix-blend-screen filter blur-[128px] opacity-20 animate-pulse" style={{ animationDelay: "2s" }}></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyber-blue rounded-full mix-blend-screen filter blur-[128px] opacity-20 animate-pulse"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyber-purple rounded-full mix-blend-screen filter blur-[128px] opacity-20 animate-pulse" style={{ animationDelay: "2s" }}></div>
 
       <div className="container mx-auto px-6 relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-8 border-[var(--color-cyber-cyan)]/30"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-8 border-cyber-cyan/30"
         >
-          <Activity className="w-4 h-4 text-[var(--color-cyber-cyan)]" />
-          <span className="text-sm font-medium text-[var(--color-cyber-cyan)]">Advanced AI Threat Detection</span>
+          <Activity className="w-4 h-4 text-cyber-cyan" />
+          <span className="text-sm font-medium text-cyber-cyan">Advanced AI Threat Detection</span>
         </motion.div>
 
         <motion.h1
@@ -36,7 +36,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto"
         >
-          CyberPhish Guardian uses military-grade AI and real-time threat intelligence to analyze suspicious URLs, expose hidden redirects, and generate actionable security assessments instantly.
+          CyberPhish uses military-grade AI and real-time threat intelligence to analyze suspicious URLs, expose hidden redirects, and generate actionable security assessments instantly.
         </motion.p>
 
         <motion.div
@@ -47,7 +47,7 @@ export default function Hero() {
         >
           <a
             href="#analyze"
-            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[var(--color-cyber-blue)] to-[var(--color-cyber-purple)] rounded-lg text-white font-semibold text-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] transition-all flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-8 py-4 bg-linear-to-r from-cyber-blue to-cyber-purple rounded-lg text-white font-semibold text-lg hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] transition-all flex items-center justify-center gap-2"
           >
             <ShieldAlert className="w-5 h-5" />
             Analyze Suspicious URL
@@ -57,7 +57,7 @@ export default function Hero() {
             className="w-full sm:w-auto px-8 py-4 glass-panel rounded-lg text-white font-semibold text-lg hover:bg-slate-800/50 transition-all flex items-center justify-center gap-2 group"
           >
             See How It Works
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform text-[var(--color-cyber-cyan)]" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform text-cyber-cyan" />
           </a>
         </motion.div>
 
@@ -68,8 +68,8 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.8 }}
           className="mt-20 relative max-w-4xl mx-auto"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-cyber-darker)] to-transparent z-10"></div>
-          <div className="glass-panel p-4 rounded-xl border border-[var(--color-cyber-cyan)]/20 transform perspective-1000 rotateX-12 shadow-2xl glow-box relative overflow-hidden">
+          <div className="absolute inset-0 bg-linear-to-t from-cyber-darker to-transparent z-10"></div>
+          <div className="glass-panel p-4 rounded-xl border border-cyber-cyan/20 transform perspective-1000 rotateX-12 shadow-2xl glow-box relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-[2px] bg-[var(--color-cyber-cyan)] shadow-[0_0_10px_#22d3ee] animate-[scan_3s_ease-in-out_infinite]"></div>
             <div className="flex items-center gap-2 border-b border-slate-700/50 pb-3 mb-3">
               <div className="flex gap-1.5">

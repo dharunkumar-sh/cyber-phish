@@ -28,7 +28,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[260px] h-full glass-panel border-r border-cyan-500/20 flex flex-col relative z-20 shrink-0">
+    <aside className="w-[260px] h-full glass-panel border-r border-cyan-500/20 flex flex-col relative z-20 shrink-0 print:hidden">
       <div className="h-20 flex items-center justify-center border-b border-cyan-500/20">
         <Link href="/" className="flex items-center gap-3 px-4 w-full cursor-pointer group">
           <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 glow-box shrink-0 group-hover:border-cyan-400 transition-colors">

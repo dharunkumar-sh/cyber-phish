@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { UserX, CreditCard, Link as LinkIcon, Smartphone } from "lucide-react";
+import Link from "next/link";
 
 export default function WhySection() {
   const attacks = [
@@ -42,8 +43,7 @@ export default function WhySection() {
               viewport={{ once: true }}
               className="text-3xl md:text-5xl font-bold mb-6"
             >
-              Why You Need <br/>
-              <span className="text-gradient">CyberPhish Guardian</span>
+              Why You Need <span className="text-gradient">CyberPhish</span>??
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, x: -30 }}
@@ -60,12 +60,12 @@ export default function WhySection() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <a
-                href="#analyze"
+              <Link
+                href="/dashboard/analysis"
                 className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white transition-all duration-300 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-lg"
               >
                 Start Analyzing URLs Free
-              </a>
+              </Link>
             </motion.div>
           </div>
 
@@ -77,7 +77,7 @@ export default function WhySection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-[#020617] p-6 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors"
+                className="bg-cyber-darker p-6 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors"
               >
                 <attack.icon className={`w-8 h-8 ${attack.color} mb-4`} />
                 <h3 className="text-lg font-bold text-white mb-2">{attack.title}</h3>

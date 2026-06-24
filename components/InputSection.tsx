@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Search, Link as LinkIcon, AlertTriangle, ShieldCheck, Zap } from "lucide-react";
 
 export default function InputSection() {
+  const router = useRouter();
   const [url, setUrl] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
@@ -12,11 +14,7 @@ export default function InputSection() {
     e.preventDefault();
     if (!url) return;
     setIsAnalyzing(true);
-    // Mock analysis delay
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      // In a real app, this would scroll to output or redirect
-    }, 2000);
+    router.push(`/dashboard/analysis?url=${encodeURIComponent(url)}`);
   };
 
   const sampleUrls = [

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AlertTriangle } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ThreatAnalysisConsole from '@/components/dashboard/ThreatAnalysisConsole';
 import ThreatOverview from '@/components/dashboard/ThreatOverview';
@@ -19,19 +20,40 @@ function AnalysisContent() {
 
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
+  const [scanData, setScanData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleScanInitiate = useCallback((url: string) => {
+  const handleScanInitiate = useCallback(async (url: string) => {
     setIsScanning(true);
     setScanComplete(false);
+    setError(null);
+    setScanData(null);
     
-    // Simulate scan duration
-    setTimeout(() => {
-      setIsScanning(false);
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url }),
+      });
+      
+      const resData = await response.json();
+      if (!response.ok || !resData.success) {
+        throw new Error(resData.error?.message || resData.error || 'Failed to analyze URL');
+      }
+      
+      setScanData(resData.data);
       setScanComplete(true);
       setTimeout(() => {
         window.scrollTo({ top: window.innerHeight * 0.4, behavior: 'smooth' });
       }, 100);
-    }, 5500);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || 'An unexpected error occurred during scan.');
+    } finally {
+      setIsScanning(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -40,6 +62,11 @@ function AnalysisContent() {
         handleScanInitiate(initialUrl);
       }, 0);
       return () => clearTimeout(timer);
+    } else {
+      setScanComplete(false);
+      setScanData(null);
+      setError(null);
+      setIsScanning(false);
     }
   }, [initialUrl, handleScanInitiate]);
 
@@ -60,28 +87,54 @@ function AnalysisContent() {
         
         <ScanTimeline isScanning={isScanning} scanComplete={scanComplete} />
 
+        {error && (
+          <div className="glass-panel p-5 rounded-xl border border-red-500/30 bg-red-500/5 text-slate-300 flex items-start gap-4 animate-shake">
+            <AlertTriangle className="w-6 h-6 text-red-500 shrink-0" />
+            <div>
+              <h4 className="text-red-400 font-bold mb-1">Scan Target Error</h4>
+              <p className="text-sm leading-relaxed">{error}</p>
+            </div>
+          </div>
+        )}
+
         <AnimatePresence>
-          {scanComplete && (
+          {scanComplete && scanData && (
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="space-y-8"
             >
-              <ThreatOverview />
+              <ThreatOverview 
+                scan={scanData.scan} 
+                intelligence={scanData.intelligence} 
+              />
               
               <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                 <div className="xl:col-span-2 space-y-8">
-                  <AnalysisResults />
-                  <ThreatIntelligence />
+                  <AnalysisResults 
+                    scan={scanData.scan} 
+                    intelligence={scanData.intelligence} 
+                  />
+                  <ThreatIntelligence 
+                    scan={scanData.scan} 
+                    intelligence={scanData.intelligence} 
+                  />
                 </div>
                 <div className="space-y-8">
-                  <AIAssistant />
-                  <SecurityRecommendations />
+                  <AIAssistant 
+                    scan={scanData.scan} 
+                  />
+                  <SecurityRecommendations 
+                    scan={scanData.scan} 
+                  />
                 </div>
               </div>
               
-              <ReportPreview />
+              <ReportPreview 
+                scan={scanData.scan} 
+                report={scanData.report} 
+              />
             </motion.div>
           )}
         </AnimatePresence>
