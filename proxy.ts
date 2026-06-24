@@ -36,46 +36,10 @@ const SECURITY_HEADERS: Record<string, string> = {
 };
 
 // ---------------------------------------------------------------------------
-// CORS headers for API routes
-// ---------------------------------------------------------------------------
-
-const ALLOWED_ORIGINS = [
-  process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
-  "http://localhost:3000",
-  "http://localhost:3001",
-];
-
-function getCorsHeaders(origin: string | null): Record<string, string> {
-  const allowedOrigin =
-    origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
-
-  return {
-    "Access-Control-Allow-Origin": allowedOrigin,
-    "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-ID",
-    "Access-Control-Max-Age": "86400",
-  };
-}
-
-// ---------------------------------------------------------------------------
 // Middleware function
 // ---------------------------------------------------------------------------
 
 export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const origin = request.headers.get("origin");
-
-  // ---- Handle CORS preflight -----------------------------------------------
-  if (request.method === "OPTIONS" && pathname.startsWith("/api/")) {
-    return new NextResponse(null, {
-      status: 204,
-      headers: {
-        ...getCorsHeaders(origin),
-        ...SECURITY_HEADERS,
-      },
-    });
-  }
-
   // ---- Generate request ID for correlation ---------------------------------
   const requestId =
     request.headers.get("x-request-id") ?? crypto.randomUUID();
@@ -95,15 +59,9 @@ export function proxy(request: NextRequest) {
     response.headers.set(key, value);
   });
 
-  // Apply CORS headers to API routes
-  if (pathname.startsWith("/api/")) {
-    Object.entries(getCorsHeaders(origin)).forEach(([key, value]) => {
-      response.headers.set(key, value);
-    });
-  }
-
   // Pass request ID back in response for client correlation
   response.headers.set("x-request-id", requestId);
 
   return response;
 }
+
